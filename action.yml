@@ -28,7 +28,7 @@ runs:
     - name: Build wasm-gas-profiler
       shell: bash
       run: |
-        cargo build --release --manifest-path ${{ github.action_path }}/Cargo.toml
+        cargo build --release --manifest-path "${{ github.action_path }}/Cargo.toml" --target-dir "${{ github.action_path }}/target"
     - name: Run Gas Profiling
       id: profile
       shell: bash
@@ -39,7 +39,7 @@ runs:
         if [ -n "${{ inputs.wasm_path }}" ]; then
           WASM_FLAG="--wasm ${{ inputs.wasm_path }}"
         fi
-        ${{ github.action_path }}/target/release/wasm-gas-profiler profile \
-          $WASM_FLAG \
-          --out-json "${{ inputs.out_json }}"
+        BIN="${{ github.action_path }}/target/release/wasm-gas-profiler"
+        [ -f "${BIN}.exe" ] && BIN="${BIN}.exe"
+        "$BIN" profile $WASM_FLAG --out-json "${{ inputs.out_json }}"
         echo "report_json=${{ inputs.out_json }}" >> $GITHUB_OUTPUT
