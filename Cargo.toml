@@ -1,0 +1,24 @@
+[package]
+name = "wasm-gas-profiler"
+version = "0.1.0"
+edition = "2021"
+authors = ["OrderStream <healthdecoded77@gmail.com>"]
+description = "Instruction-level WASM opcode analyzer and CPU fuel profiler for Soroban smart contracts."
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/OrderStream/wasm-gas-profiler"
+readme = "README.md"
+keywords = ["stellar", "soroban", "wasm", "gas", "profiler"]
+
+[[bin]]
+name = "wasm-gas-profiler"
+path = "src/main.rs"
+
+[lib]
+name = "wasm_gas_profiler"
+path = "src/lib.rs"
+
+[dependencies]
+clap = { version = "4.4", default-features = false, features = ["std", "derive", "help", "usage"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+thiserror = "2.0"
